@@ -117,6 +117,23 @@
   }
 }
 
+.tag {
+  margin: 0 5px 5px 0;
+  padding: 8px 16px;
+  background-color: #fff;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  text-decoration: none;
+  color: #333;
+}
+
+.tag:hover {
+  background-color: #333;
+  color: #fff;
+  border-color: #000;
+}
+
 // Widget Subscribe
 .subscribe-subtitle {
   width: 100%;
