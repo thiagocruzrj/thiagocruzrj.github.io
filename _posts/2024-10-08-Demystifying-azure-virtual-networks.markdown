@@ -3,7 +3,7 @@ layout: post
 title:  Demystifying Azure Virtual Networks (VNet)
 description: Azure VNet is the easiest way to keep your Azure resources chatting privately. If you want to learn how one of a network's fundamental building blocks works, you're in the right place.
 date: 2024-10-08 20:00:00 +0300
-image: '/images/10.jpg'
+image: '/images/virtual-network.jpg'
 ShowToc: true
 tags: [Azure, Networking, VNet]
 ---
@@ -54,7 +54,7 @@ In short, overlapping subnets are like having two different coffee shops with th
 <br>
 * If you don't have Terraform installed, please follow this [amazing documentation](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli) provided by Hashicorp.
 
-``` javascript
+``` js
 provider "azurerm" {
   features {}
 }
@@ -114,3 +114,29 @@ NSGs contain a list of security rules that allow or deny network traffic based o
 3. NSGs are stateless for outbound traffic, which means return traffic is automatically allowed. ⁤⁤If not configured carefully, this could potentially expose resources. ⁤
 4. While NSGs provide basic logs, they lack advanced monitoring capabilities compared to dedicated security appliances. ⁤
 
+## What is VNet Peering? 
+
+It's a seamless and secure way to communicate between VNets, like building a private bridge between two islands. It's fast, cost-effective, and allows VNets to keep logically separated while communicating across regions or within the same Azure Region. 
+
+### Key Features of Vnet Peering 
+
+1. Low latency, as the communication is routed directly within the Azure Backbone network, meaning that it's fast and doesn't require any gateway or public internet traffic. Perfect high-speed data transfer across applications. 
+2. Peering Vnets within the same region (Intra-Region Peering) or VNets located in different Azure regions (Global VNet Peering). This is very useful for global apps where resources are spread across different regions. 
+3. By peering two VNets, you can access resources like databases, share load balances, Application Gateways, or other network services. 
+4. VNet A can communicate with VNet B but cannot automatically talk to VNet C through VNet B (non-transitive). You still route traffic between multiple VNets using a Network Virtual Appliance (NVA) like Azure Firewall or an on-premises VPN device. 
+5. The communication between peered VNets takes place using private IP addresses, so no public IP is required. 
+6. Applying NSGs and route tables to control traffic between peered VNets can ensure granular control over traffic flow between networks. 
+
+### Pros of VNet Peering 
+
+1. It is cost-effective in comparison with VPN Gateway, as it doesn't incur data processing changes for network traffic. You only pay for the data transferred between the VNets, making it a cheaper option than using VPN or ExpressRoute.
+2. Doesn't require a complex setup like Gateways or VPNs.
+3. Very performative as VNets communicate directly over Azure's backbone network.
+4. With NSGs and custom route tables, you can allow filter and monitor traffic between VNets.
+5. Very scalable by expanding your infrastructure across multiple VNets and regions seamlessly.
+
+### Cons of VNet Peering 
+
+1. Routes between multiple VNets are more complex if they are part of a more extensive network topology.
+2. Careful IP space planning, especially in large organizations with many VNets, to avoid overlapping. 
+3. Vnet peering doesn't inherently allow the use of gateway transit (i.e., one VNet has the VPN Gateway, another peered VNet cannot use that gateway unless you explicitly configure gateway transit). 
