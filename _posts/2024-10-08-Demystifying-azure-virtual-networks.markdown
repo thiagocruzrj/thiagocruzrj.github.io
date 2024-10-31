@@ -7,6 +7,7 @@ image: '/images/virtual-network.jpg'
 ShowToc: true
 tags: [Azure, Networking, VNet]
 ---
+{:toc}
 Hi, fellow cloud enthusiasts, welcome to my first blog post! 👋
 If you've ever wondered how to keep your Azure resources chatting privately without being "bothered" by the outside world, follow me in this article. Today, we're diving into the networking world of [Azure Virtual Networks (VNet)](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview). Whether you're a seasoned DevOps engineer or just starting your cloud path, this guide will help you set up your secure and efficient VNet using Terraform.
 
