@@ -7,3 +7,4 @@ image: '/images/azurexopenai.jpeg'
 ShowToc: true
 tags: [Azure, OpenAI, AI, Terraform]
 ---
+Hi, fellow cloud enthusiasts, welcome to my second blog post! 👋
