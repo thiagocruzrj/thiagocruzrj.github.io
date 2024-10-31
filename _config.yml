@@ -2,9 +2,9 @@
 # General Site Settings
 title: LivingCloud
 logo: # You can add own logo. For example '/images/logo.png'.
-description: Norlin – A Beautiful Dark Blog Theme for Jekyll.
+description: ""
 baseurl: "https://thiagocruzrj.github.io" # The subpath of your site, e.g. /blog
-url: "" # The base hostname & protocol for your site, e.g. http://example.com
+url: "" 
 
 #-------------------------------
 # Author Settings
