@@ -27,7 +27,7 @@ When you create an Azure OpenAI resource, it is bound to one Azure region; for e
 * **Data Residency**: Data is processed and stored within that region.
 
 ### Terraform example
-``` json
+``` js
 resource "azurerm_resource_group" "rg" {
   name     = "ai-rg"
   location = "eastus2"
@@ -74,7 +74,7 @@ When you deploy a model, you have choises about where your interface requests ca
 
 ### Terraform Example
 
-``` json
+``` js
 resource "azurerm_cognitive_deployment" "ai_cd" {
   name                 = "ai-opeinai-cd"
   cognitive_account_id = azurerm_cognitive_account.ai_ca.id
@@ -85,7 +85,7 @@ resource "azurerm_cognitive_deployment" "ai_cd" {
   }
 
   sku {
-    name = "GlobalStandard" # The name of the SKU. Possible values include Standard, GlobalBatch, GlobalStandard and ProvisionedManaged.
+    name = "GlobalStandard"
   }
 }
 ```
