@@ -7,7 +7,6 @@ image: '/images/virtual-network.jpg'
 ShowToc: true
 tags: [Azure, Networking, VNet]
 ---
-{:toc}
 Hi, fellow cloud enthusiasts, welcome to my first blog post! 👋
 If you've ever wondered how to keep your Azure resources chatting privately without being "bothered" by the outside world, follow me in this article. Today, we're diving into the networking world of [Azure Virtual Networks (VNet)](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview). Whether you're a seasoned DevOps engineer or just starting your cloud path, this guide will help you set up your secure and efficient VNet using Terraform.
 
@@ -62,7 +61,7 @@ provider "azurerm" {
 
 resource "azurerm_resource_group" "rg" {
   name     = "myResourceGroup"
-  location = "East US"
+  location = "eastus2"
 }
 
 resource "azurerm_virtual_network" "vnet" {
@@ -141,3 +140,141 @@ It's a seamless and secure way to communicate between VNets, like building a pri
 1. Routes between multiple VNets are more complex if they are part of a more extensive network topology.
 2. Careful IP space planning, especially in large organizations with many VNets, to avoid overlapping. 
 3. Vnet peering doesn't inherently allow the use of gateway transit (i.e., one VNet has the VPN Gateway, another peered VNet cannot use that gateway unless you explicitly configure gateway transit). 
+
+### 
+``` js
+provider "azurerm" {
+  features {}
+}
+
+resource "azurerm_resource_group" "rg" {
+  name     = "myResourceGroup"
+  location = "eastus2"
+}
+
+# VNet 1
+resource "azurerm_virtual_network" "vnet1" {
+  name                = "myVNet1"
+  address_space       = ["10.0.0.0/16"]
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+}
+
+resource "azurerm_subnet" "subnet_web_vnet1" {
+  name                 = "webSubnet1"
+  resource_group_name  = azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.vnet1.name
+  address_prefixes     = ["10.0.1.0/24"]
+}
+
+resource "azurerm_subnet" "subnet_db_vnet1" {
+  name                 = "dbSubnet1"
+  resource_group_name  = azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.vnet1.name
+  address_prefixes     = ["10.0.2.0/24"]
+}
+
+# VNet 2
+resource "azurerm_virtual_network" "vnet2" {
+  name                = "myVNet2"
+  address_space       = ["10.1.0.0/16"]
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+}
+
+resource "azurerm_subnet" "subnet_web_vnet2" {
+  name                 = "webSubnet2"
+  resource_group_name  = azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.vnet2.name
+  address_prefixes     = ["10.1.1.0/24"]
+}
+
+resource "azurerm_subnet" "subnet_db_vnet2" {
+  name                 = "dbSubnet2"
+  resource_group_name  = azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.vnet2.name
+  address_prefixes     = ["10.1.2.0/24"]
+}
+
+# Network Security Group
+resource "azurerm_network_security_group" "nsg" {
+  name                = "myNSG"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+}
+
+# NSG Rules
+resource "azurerm_network_security_rule" "allow_inbound_http" {
+  name                        = "AllowInboundHTTP"
+  priority                    = 100
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "80"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = azurerm_resource_group.rg.name
+  network_security_group_name = azurerm_network_security_group.nsg.name
+}
+
+resource "azurerm_network_security_rule" "allow_outbound_https" {
+  name                        = "AllowOutboundHTTPS"
+  priority                    = 200
+  direction                   = "Outbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "443"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = azurerm_resource_group.rg.name
+  network_security_group_name = azurerm_network_security_group.nsg.name
+}
+
+# Associate NSG with Subnet
+resource "azurerm_subnet_network_security_group_association" "webSubnet1_nsg_association" {
+  subnet_id                 = azurerm_subnet.subnet_web_vnet1.id
+  network_security_group_id = azurerm_network_security_group.nsg.id
+}
+
+resource "azurerm_subnet_network_security_group_association" "dbSubnet1_nsg_association" {
+  subnet_id                 = azurerm_subnet.subnet_db_vnet1.id
+  network_security_group_id = azurerm_network_security_group.nsg.id
+}
+
+# VNet Peering between VNet1 and VNet2
+resource "azurerm_virtual_network_peering" "vnet1_to_vnet2" {
+  name                      = "vnet1-to-vnet2"
+  resource_group_name       = azurerm_resource_group.rg.name
+  virtual_network_name      = azurerm_virtual_network.vnet1.name
+  remote_virtual_network_id = azurerm_virtual_network.vnet2.id
+  allow_virtual_network_access = true
+  allow_forwarded_traffic      = true
+}
+
+resource "azurerm_virtual_network_peering" "vnet2_to_vnet1" {
+  name                      = "vnet2-to-vnet1"
+  resource_group_name       = azurerm_resource_group.rg.name
+  virtual_network_name      = azurerm_virtual_network.vnet2.name
+  remote_virtual_network_id = azurerm_virtual_network.vnet1.id
+  allow_virtual_network_access = true
+  allow_forwarded_traffic      = true
+}
+
+```
+
+### Explanation of Key Components
+* Network Security Group (azurerm_network_security_group): Defines a security group named myNSG.
+* NSG Rules:
+  * <span class="highlight">AllowInboundHTTP</span>: Allows inbound HTTP traffic on <span class="highlight">port 80</span>.
+  * <span class="highlight">AllowOutboundHTTPS</span>: Allows outbound HTTPS traffic on <span class="highlight">port 443</span>.
+* NSG Association (<span class="highlight">azurerm_subnet_network_security_group_association</span>): 
+  * Associates the NSG with specific subnets in vnet1.
+* VNet Peering (<span class="highlight">azurerm_virtual_network_peering</span>):
+  * <span class="highlight">vnet1_to_vnet2</span> and <span class="highlight">vnet2_to_vnet1</span> set up bidirectional peering between vnet1 and vnet2.
+  * <span class="highlight">allow_virtual_network_access</span> and <span class="highlight">allow_forwarded_traffic</span> are enabled to allow traffic flow between peered VNets.
+
+## Conclusion
+
+In conclusion, creating and managing Azure Virtual Networks (VNets) is a foundational skill for ensuring secure and efficient communication between your resources in the cloud. By using Terraform, you can streamline the process of building and configuring VNets, subnets, and Network Security Groups (NSGs), making it easier to maintain and control network traffic within your infrastructure.
