@@ -32,11 +32,11 @@ Imagine you're the security guy in a marriage, and the bride and groom accidenta
 In technical terms, overlapping subnets occur when two or more subnets within the same Virtual Network (VNet) share IP address ranges that intersect or duplicate. This overlap confuses Azure's networking components, leading to traffic routing problems. 
 
 ### Example of Overlapping Subnets
-Here, Subnet B's address is <code class="highlight">10.0.1.0/24</span> and ranges ( from <code class="highlight">10.0.1.128</span> to <code class="highlight">10.0.1.255</span>), which overlaps with Subnet A's address <code class="highlight">10.0.1.128/25</span> and range ( from <code class="highlight">10.0.1.0</span> to <code class="highlight">10.0.1.255</span>). 
+Here, Subnet B's address is <span class="highlight">10.0.1.0/24</span> and ranges ( from <span class="highlight">10.0.1.128</span> to <span class="highlight">10.0.1.255</span>), which overlaps with Subnet A's address <span class="highlight">10.0.1.128/25</span> and range ( from <span class="highlight">10.0.1.0</span> to <span class="highlight">10.0.1.255</span>). 
 
 ## Why Should You Avoid Overlapping Subnets?
 
-1. Azure won't know which subnet to send traffic to, causing unpredictable behavior by this **confusion**. (If any of your subnets are overlapping after the <code class="highlight">Terraform apply</span> command an error will pop up) 
+1. Azure won't know which subnet to send traffic to, causing unpredictable behavior by this **confusion**. (If any of your subnets are overlapping after the <span class="highlight">Terraform apply</span> command an error will pop up) 
 2. Creating or updating resources may fail due to IP **conflicts**. 
 3. Misrouted traffic can expose sensitive data or allow unauthorized access, leading to **security** risks. 
 4. Your resources might not **communicate** as intended, leading to downtime. 
