@@ -265,7 +265,7 @@ resource "azurerm_virtual_network_peering" "vnet2_to_vnet1" {
 ```
 
 ### Explanation of Key Components
-* Network Security Group (azurerm_network_security_group): Defines a security group named myNSG.
+* Network Security Group (<span class="highlight">azurerm_network_security_group</span>): Defines a security group named myNSG.
 * NSG Rules:
   * <span class="highlight">AllowInboundHTTP</span>: Allows inbound HTTP traffic on <span class="highlight">port 80</span>.
   * <span class="highlight">AllowOutboundHTTPS</span>: Allows outbound HTTPS traffic on <span class="highlight">port 443</span>.
