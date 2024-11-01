@@ -44,7 +44,7 @@ disqus-identifier: anvodstudio-demo # Add your shortname for Disqus Comment.
 
 #-------------------------------
 # Google Analytics
-google-analytics: # Add your identifier. For example UA-99631805-1.
+google-analytics: #UA-XXXXXXXXX-X Add your Google Analytics tracking ID.
 
 
 #-------------------------------
