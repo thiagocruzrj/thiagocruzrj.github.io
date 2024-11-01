@@ -131,3 +131,164 @@ Even with deployments being global, or at least at the level of the data zone, y
 ### Approaches
 * **Multiple Regional Resources**: It sets up the configuration for deploying Azure OpenAI resource accross more than one region.
 * **Failover Mechanism**: It describes the logic required to trigger endpoint switching in case of failure.
+
+## API Management Configuration
+With [APIM](https://learn.microsoft.com/en-us/azure/api-management/), you're able to expose an interface endpoint for all your applications.
+* **Centralized Rounting**: APIM routes the request to a targeted OpenAI resource endpoint.
+* **Health Probing**: Automatic detection of failed instances and routing.
+* **Policy Implementation**: Caching, rate limiting, and any other policy you wanna perform.
+
+``` js
+resource "azurerm_virtual_network" "vnet" {
+  name                = "ai-opeinai-vnet"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  address_space       = var.vnet_address_space
+  depends_on          = [azurerm_resource_group.rg]
+}
+
+resource "azurerm_subnet" "apim_subnet" {
+  name                 = "apim-subnet"
+  resource_group_name  = azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = [var.apim_subnet_prefix]
+}
+
+resource "azurerm_subnet" "cognitive_services_subnet" {
+  name                 = "cogsvc-subnet"
+  resource_group_name  = azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = [var.cognitive_services_subnet_prefix]
+}
+
+resource "azurerm_public_ip" "apim_public_ip" {
+  name                = "apim-public-ip"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  allocation_method   = "Static"
+  sku                 = "Standard"
+  domain_name_label   = "apim-oaigw"
+}
+
+resource "azurerm_api_management" "apim" {
+  name                = "apim"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  publisher_name      = "your-name"
+  publisher_email     = "your-email"
+  sku_name            = "Premium_1"
+  public_ip_address_id = azurerm_public_ip.apim_public_ip.id
+
+  identity {
+    type = "SystemAssigned"
+  }
+
+  virtual_network_configuration {
+    subnet_id = azurerm_subnet.apim_subnet.id
+  }
+
+  virtual_network_type = "External"
+
+  tags = local.common_tags
+
+  lifecycle {
+    ignore_changes = [ 
+        hostname_configuration
+     ]
+  } 
+
+  depends_on = [azurerm_subnet.apim_subnet]
+}
+
+resource "azurerm_api_management_api" "api" {
+  name                  = "openai-api"
+  resource_group_name   = azurerm_resource_group.rg.name
+  api_management_name   = azurerm_api_management.apim.name
+  revision              = "1"
+  display_name          = "OpenAI API"
+  path                  = ""
+  protocols             = ["https"]
+  subscription_required = false
+
+
+  depends_on = [azurerm_api_management.apim]
+
+  import {
+    content_format = "openapi-link"
+    content_value  = "https://gist.githubusercontent.com/aymenfurter/f165303a653d68b5031c10e84ab5f887/raw/0058d5bf60326071672c963fbba6eff5744057c8/openai"
+  }
+}
+
+resource "azurerm_api_management_named_value" "tenant_id" {
+  name                = "tenant"
+  resource_group_name = azurerm_resource_group.rg.name
+  api_management_name = azurerm_api_management.apim.name
+  display_name        = "tenant"
+  value               = data.azurerm_subscription.current.tenant_id
+}
+
+resource "azurerm_api_management_api_policy" "policy" {
+  api_name            = azurerm_api_management_api.api.name
+  api_management_name = azurerm_api_management.apim.name
+
+  depends_on = [azurerm_api_management_api.api, azurerm_api_management_named_value.tenant_id, azurerm_api_management_logger.logger]
+
+  resource_group_name = azurerm_resource_group.rg.name
+
+  xml_content = <<XML
+<policies>
+</policies>
+XML
+}
+```
+
+## How Prompt Caching Affects Azure OpenAI
+Prompt caching in Azure OpenAI reduces the number of tokenizations done to a cached version, hance cost-optimizing it. This is because when a repeated prompt exceeds <span class="highlight">~1,000 tokens</span>, you're able to reuase the result of the tokenization.
+* **Instance Level Cache**: The cache is local to the instance serving the requests.
+* **Best Effort**: No guarantees; smart routing tries to route similiar requests to the same instance.
+
+## Provisioned Throughput Units (PTUs)
+PTUs let you home to Get Capacity Resevertions and consequently to achieve consistent performance.
+
+### Pay-as-You-Go Features
+* **Comsumption-Based**: You pay only per your consumption.
+* **Variable Costs**: Costs will vary depending on consumption.
+* **Not Throughput Guarantees**: Performance depends on available capacity.
+
+### PTU features
+* **Guaranteed Throughput**: Reserves the certain capacity mensured in tokens per minute.
+* **Consistent Latency**: More predictable response times (99% SLA).
+* **Fixed Costs**: You pay for your reserved capacity independend of usage.
+  * **Global PTU**: $1/hour.
+  * **Data Zone PTU**: $1.10/hour.
+* More accesible for smaller workloads.
+
+## Azure Reservations
+If you plan to use PTUs over longer timeframes, then you can make reservations to reduce cost.
+* **Monthly and Yearly Reservations**: Commit to a longer period for discounted rates.
+* **Cost Savings**: Save money compared to hourly rates.
+* **Planning Required**: Ensure you correctly estimate your capacity needs.
+
+## Batch Service
+The Batch deployment type is ideal for those inference jobs that aren't time-sensitive.
+* **Asynchronous Processing**: 24-hour asynchronous processing of jobs is allowed.
+* **Cost-Effective**: About 50% more cost-effective compared with stardard deployments.
+* **Global Capacity**: It uses spare capacity globally.
+
+### Use Cases
+* **Content Generation**: Large-scale content generation, where immediate needs aren't there.
+* **Data Analysis**: Large amounts of data could be asynchronously processed.
+
+## Summary
+Understanding all the deployment options inside Azure OpenAI will be important to optimal performance, ensuring compliance, and keeping control of your costs. Here is a quick rundown:
+
+* **Stateless API**: Conversation history resides within your application.
+* **Regional Resources**: Azure OpenAI resource is regional in scope.
+* **Capacity Pools**: The models run on capacity pools that autoscale based on demand.
+* **Types of Deployments**:
+  * **Standard**: Capacity pools are regional.
+  * **Global**: Access to capacity pools globally.
+  * **Data Zone**: Access within US or EU regions.
+* **Inteligent Rounting**: Optimizes the handling of requests for performance.
+* **Provisined Throughput**: Reserve capacity for guaranteed performance.
+* **Improving Resiliency**: Using multiple regional resource and API Management.
