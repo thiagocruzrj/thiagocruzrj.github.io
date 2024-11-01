@@ -22,7 +22,7 @@ Think of Azure Virtual Network as your own neighborhood in this big Azure city. 
 ## Key Components of VNet 
 Now, let's dive into the key components involved with a VNet. Consider this as building and adding bricks to your cloud city.
 
-### Subnets and IP Addressing 
+#### Subnets and IP Addressing 
 Well, the concept of subnetting is to divide your city into different parts, just like in your hometown. And each of those subnets can host various kinds of resources. For example, one subnet for web servers, another subnet for databases. And [IP Addressing](https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/private-ip-addresses) is how your resources find each otherᅳlike address numbers.
 
 ## What Are Overlapping Subnets? 
@@ -31,7 +31,7 @@ It would be as if you were the security guy at a marriage, and the bride and gro
 
 Overlapping of subnets, technically speaking, means that inside one single VNet, there exist two or more subnets with the IP address range being either duplicated or having commonalities. This duplication is leading to a result of deceiving the networking components of Azure as much that it perturbs in routing the traffic.
 
-### Overlapping Subnets Example
+#### Overlapping Subnets Example
 Here, the address of Subnet B is <span class="highlight">10.0.1.0/24</span> and its range is from <span class="highlight">10.0.1.128</span> to <span class="highlight">10.0.1.255</span>, overwriting the address of Subnet A, which is <span class="highlight">10.0.1.128/25</span>, and whose range is from <span class="highlight">10.0.1.0</span> to <span class="highlight">10.0.1.255</span>.
 
 ## Why Should You Not Have Overlapping Subnets?
@@ -91,7 +91,7 @@ resource "azurerm_subnet" "subnet_db" {
 
 Think of having a party, which for this example, shall be your analogy to your VNet: suppose you wanted to control who gets in and out. The NSGs are like that security guard at the door who allows which traffic and blocks which, based on pre-defined rules. They enable one to protect one's Azure resources by filtering inbound and outbound network traffic to and from resources in a VNet.
 
-### Main Characteristics of NSGs
+#### Main Characteristics of NSGs
 * Inbound and Outbound Rules: Indicate what traffic is allowed in and out. ⁤
 * Priority numbers will tell the sequence of rule processing.
 1. Lower numbers are higher in priority
@@ -101,14 +101,14 @@ Think of having a party, which for this example, shall be your analogy to your V
 
 NSGs are an ordered list of security rules that allow or deny network traffic based on criteria such as, amongst others, Source and Destination IP Addresses, Ports and Protocols, and the flow of traffic - Inbound or Outbound. As such, when a packet of information tries to enter or exit a resource, the NSG checks the same against its set of rules and makes a decision to Allow or Deny the same.
 
-### Advantages of Using NSGs
+#### Advantages of Using NSGs
 1. Granular Control: It enables the setting of rules for specific traffic, hence offering the ability to finetune your network security. ⁤
 2. Cost-Effective: Since NSG is an Azure VNet-integrated service, you don't have to incur additional expenses for basic network security. ⁤
 3. Easy Management: NSG management is relatively easy since it has a pretty user-friendly interface and is also integrated with tools such as Terraform.
 4. NSGs can be applied at multiple levels-from a few resources to subnets or even complete VNets-thus making them **scalable** for your infrastructure's growth. ⁤
 5. NSGs ensure **seamless integration** with other services provided by Azure, enhancing overall security posture.
 
-### Cons of Using NSGs
+#### Cons of Using NSGs
 1. NSGs operate at Layer 4 (Transport Layer) of the OSI model, meaning they can't inspect the content of the traffic as Layer 7 does. ⁤
 2. Too many rules are hard to manage and debug. ³
 3. NSGs are stateless for outbound traffic. The return traffic is allowed automatically. ³³Planned negligently, this could expose resources. ³
@@ -118,7 +118,7 @@ NSGs are an ordered list of security rules that allow or deny network traffic ba
 
 This will, in turn, provide a seamless and secure manner of communicating between VNets, similar to building a private bridge between two islands. It is fast, cost-effective, and allows VNets to keep logically separated while communicating across regions or within the same Azure Region.
 
-### Key Features of Vnet Peering
+#### Key Features of Vnet Peering
 
 1. Low latency, since it routes the communication directly inside the Azure Backbone network, hence fast and does not require any gateway or public internet traffic. Perfect high-speed data transfer across applications.
 2. Peering VNets within the same region, known as Intra-Region Peering or VNets across different Azure regions, also known as Global VNet Peering. Very useful for global apps when their resources spread across different regions.
@@ -131,12 +131,12 @@ This will, in turn, provide a seamless and secure manner of communicating betwee
 3. It is highly performant because VNets can communicate directly over the backbone network of Azure.
 4. NSGs and custom route tables can allow filtering and monitoring of traffic between VNets. 5. Highly scalable since you will expand your infrastructure across multiple VNets and regions seamlessly.
 
-### VNet Peering Disadvantages
+#### VNet Peering Disadvantages
 
 1. More complicated routes between multiple VNets if they become part of a larger network topology. 2. Planning of IP spaces should be strictly done, especially for large organizations with numerous VNets so as not to have any overlapping.
 3. Vnet peering does not, by default enable the usage of gateway transit, which means one VNet has the VPN Gateway, another peered VNet cannot use that gateway unless you explicitly config gateway transit.
 
-### 
+#### 
 ``` js
 provider "azurerm" {
   features {}
@@ -259,7 +259,7 @@ resource "azurerm_virtual_network_peering" "vnet2_to_vnet1" {
 
 ```
 
-### Explanation of Key Components
+#### Explanation of Key Components
 * Network Security Group (<span class="highlight">azurerm_network_security_group</span>): This is the definition of a security group named myNSG.
 * NSG Rules:
   * <span class="highlight">AllowInboundHTTP</span>: Allows inbound HTTP traffic on <span class="highlight">port 80</span>.

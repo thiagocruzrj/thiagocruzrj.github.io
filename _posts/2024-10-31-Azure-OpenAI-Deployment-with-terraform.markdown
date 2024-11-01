@@ -17,7 +17,7 @@ When working with generative models using Azure OpenAI, it is very important to 
 
 Take, for example keeping up a conversation. Every call your application makes to the API, it needs to be provided with the whole conversation history.
 
-### Implications
+#### Implications
 * **Scalability**: Requests can be routed to any instance without concern about state.
 * **Resiliency**: Instances can be scaled up or down, replaced or rerouted without affecting the conversation flow.
 
@@ -26,7 +26,7 @@ When you create an Azure OpenAI resource, it is bound to one Azure region, for e
 * The <span class="highlight">Service endpoint</span> that you interact with is regional.
 * **Data Residency**: Data is processed and stored within that region.
 
-### Terraform example
+#### Terraform example
 ``` js
 resource "azurerm_resource_group" "rg" {
   name     = "ai-rg"
@@ -48,7 +48,7 @@ In each region, there are capacity pools running specific models and versions. C
 * **Autoscaling**: he capacity pool can scale in or out.
 * **Multiple Instances**: Ensures high availability and load balancing.
 
-### Key Points
+#### Key Points
 * **No Ongoing State**: Each instance will serve te request independently.
 * **Control Plane and Data Plane**: The control plane is responsible for staling and health, while the data plane is responsible for inference requests.
 
@@ -60,19 +60,19 @@ Azure OpenAI provides Responsible AI layers to ensure compliance and prevent abu
 ## Model Deployment Types
 When you deploy a model, you have choises about where your interface requests can be processed.
 
-### Standard Deployment
+#### Standard Deployment
 * **Regional Scope**: Requests are processed only within the capacity pool of that region in which your resource is deployed.
 * **Limited Capacity**: You're limited to the instances available within that region.
 
-### Global Deployment
+#### Global Deployment
 * **Global Scope**: Requests can be routed to any capacity pool globally, which supports your model and version.
 * **Higher Availability**: Be able to process the request more quickly.
 
-### Data Zone Deployment
+#### Data Zone Deployment
 * **Zone Scope**: Requests are processed in defined data zones, such as <span class="highlight">West US 2</span> or <span class="highlight">West Europe</span> (For more informations about models by deployment type and regions, access the [Azure OpenAI Service models](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models?tabs=python-secure%2Cglobal-standard%2Cstandard-chat-completions) page).
 * **Data Residency compliance**: Ensures that data resides within the boundaries of geographical locations.
 
-### Terraform Example
+#### Terraform Example
 
 ``` js
 resource "azurerm_cognitive_deployment" "ai_cd" {
@@ -102,7 +102,7 @@ The Azure OpenAI uses intelligent rounting to make sure optmization around perfo
 * **Inference Latency**: Time take by the model to return a response
   * Greater than network latency
 
-### Implications
+#### Implications
 * **Optimization of inference latency**: Performance optimization more important with respect to inference latency.
 * **Global Deployment**: Access to less utilized instances reduces the inference latency.
 
@@ -110,25 +110,26 @@ The Azure OpenAI uses intelligent rounting to make sure optmization around perfo
 * **Quota**: Maximum tokens per minute allowed for the resource
 * **Available Capacity**: Resources that are available at any time.
 
-### Challenges
+#### Challenges
 * **Quota doesn't guarantee capacity**: You mightn't be able to fulfill your quota if capacity isn't available.
 * **Regional Limitations**: Capacity can become an issue with standard deployments.
 
-### Solution
+#### Solution
 * **Global or Data Zone Deployments**: Expand your pool of availability to meet your quota.
 
 ## Data Zones and Data Resiliency
 Data Zones let you balance between being globally available and, at the same time, needs to satisfy data residency requirements.
 * **US Data Zone**: Data processing will only be done within US regions
 * **EU Data Zone**: Data processing will only be processed within EU regions
-### Use Cases
+
+#### Use Cases
 * **Compliance**: Meet regulatory requirements about data residency, that is where data is processed.
 * **Performance**: Can still take advantage of a larger resource pool inside the data zone
 
 ## Increase Application Resiliency
 Even with deployments being global, or at least at the level of the data zone, your Azure OpenAI resource is still a single point of failure within its region.
 
-### Approaches
+#### Approaches
 * **Multiple Regional Resources**: It sets up the configuration for deploying Azure OpenAI resource accross more than one region.
 * **Failover Mechanism**: It describes the logic required to trigger endpoint switching in case of failure.
 
@@ -189,8 +190,6 @@ resource "azurerm_api_management" "apim" {
 
   virtual_network_type = "External"
 
-  tags = local.common_tags
-
   lifecycle {
     ignore_changes = [ 
         hostname_configuration
@@ -215,7 +214,7 @@ resource "azurerm_api_management_api" "api" {
 
   import {
     content_format = "openapi-link"
-    content_value  = "https://gist.githubusercontent.com/aymenfurter/f165303a653d68b5031c10e84ab5f887/raw/0058d5bf60326071672c963fbba6eff5744057c8/openai"
+    content_value  = "link"
   }
 }
 
@@ -250,12 +249,12 @@ Prompt caching in Azure OpenAI reduces the number of tokenizations done to a cac
 ## Provisioned Throughput Units (PTUs)
 PTUs let you home to Get Capacity Reservations and consequently to achieve consistent performance.
 
-### Pay-as-You-Go Features
+#### Pay-as-You-Go Features
 * **Comsumption-Based**: You pay only per your consumption.
 * **Variable Costs**: Costs will vary depending on consumption.
 * **Not Throughput Guarantees**: Performance depends on available capacity.
 
-### PTU features
+#### PTU features
 * **Guaranteed Throughput**: Reserves a certain capacity measured in tokens per minute.
 * **Consistent Latency**: More predictable response times (99% SLA).
 * **Fixed Costs**: You pay for your reserved capacity independend of usage.
@@ -275,7 +274,7 @@ The Batch deployment type is ideal for those inference jobs that aren't time-sen
 * **Cost-Effective**: About 50% more cost-effective compared with standard deployments.
 * **Global Capacity**: It uses spare capacity globally.
 
-### Use Cases
+#### Use Cases
 * **Content Generation**: Large-scale content generation, where immediate needs aren't there.
 * **Data Analysis**: Large amounts of data could be asynchronously processed.
 
