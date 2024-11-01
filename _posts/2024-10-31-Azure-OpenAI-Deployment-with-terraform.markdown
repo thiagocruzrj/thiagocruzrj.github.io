@@ -26,7 +26,7 @@ When you create an Azure OpenAI resource, it is bound to one Azure region, for e
 * The <span class="highlight">Service endpoint</span> that you interact with is regional.
 * **Data Residency**: Data is processed and stored within that region.
 
-#### Terraform example
+#### Terraform Example
 ``` js
 resource "azurerm_resource_group" "rg" {
   name     = "ai-rg"
