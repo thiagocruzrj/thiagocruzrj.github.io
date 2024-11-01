@@ -1,7 +1,7 @@
 #-------------------------------
 # General Site Settings
 title: LivingCloud
-logo: # You can add own logo. For example '/images/logo.png'.
+logo: "/images/cloud-favicon.png"
 description: ""
 baseurl: "https://thiagocruzrj.github.io" # The subpath of your site, e.g. /blog
 url: "" 
@@ -16,7 +16,7 @@ author:
 #-------------------------------
 # Hero Settings
 hero:
-  title: LivingCloud
+  title: Living Cloud
   description: All about Cloud Computing, Infrastructure, and so on.
   image: '/images/cloud-index.jpg'
 
