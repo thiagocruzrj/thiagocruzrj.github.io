@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Azure OpenAI Deployment types with Terraform
-description: We'll explore the essential topics from Azure OpenAI Service and use Terraform code examples to help implement these concepts effectively.
+description: 
 date: 2024-10-31 12:00:00 +0300
 image: '/images/azurexopenai.png'
 ShowToc: true

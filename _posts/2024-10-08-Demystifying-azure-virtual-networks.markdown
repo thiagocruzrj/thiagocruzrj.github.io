@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Demystifying Azure Virtual Networks (VNet)
-description: Azure VNet is the easiest way to keep your Azure resources chatting privately. If you want to learn how one of a network's fundamental building blocks works, you're in the right place.
+description: 
 date: 2024-10-08 20:00:00 +0300
 image: '/images/virtual-network.jpg'
 ShowToc: true
