@@ -2,7 +2,7 @@
 layout: post
 title:  Azure OpenAI Deployment types with Terraform
 description: 
-date: 2024-10-31 12:00:00 +0300
+date: 2024-11-01 12:00:00 +0300
 image: '/images/azurexopenai.png'
 ShowToc: true
 tags: [Azure, OpenAI, AI, Terraform]
@@ -15,15 +15,15 @@ When working with generative models using Azure OpenAI, it is very important to 
 * **User Prompt**: What the user types.
 * **Assistant's response**: This is the model's generated output.
 
-Take, for example keeping up a conversation. In every call your application makes to the API, it needs to be provided with the whole conversation history.
+Take, for example keeping up a conversation. Every call your application makes to the API, it needs to be provided with the whole conversation history.
 
 ### Implications
 * **Scalability**: Requests can be routed to any instance without concern about state.
-* **Resiliency**: Instances can be scaled up or down, replaced or rerouted without effecting the conversation flow.
+* **Resiliency**: Instances can be scaled up or down, replaced or rerouted without affecting the conversation flow.
 
 ## Regional Azure OpenAI Resource
-When you create an Azure OpenAI resource, it is bound to one Azure region; for example East US and West Europe. This implies:
-* The Service endpoint that you interact with is regional.
+When you create an Azure OpenAI resource, it is bound to one Azure region, for example, East US and West Europe. This implies:
+* The <span class="highlight">Service endpoint</span> that you interact with is regional.
 * **Data Residency**: Data is processed and stored within that region.
 
 ### Terraform example
@@ -44,15 +44,15 @@ resource "azurerm_cognitive_account" "ai_ca" {
 ```
 
 ## How Capacity Pools Work
-In each region, there are pools of capacity running specific models and versions. Capacity pools are groups of instances running on GPUs serving the inference workloads.
+In each region, there are capacity pools running specific models and versions. Capacity pools are groups of instances running on GPUs serving the inference workloads.
 * **Autoscaling**: he capacity pool can scale in or out.
 * **Multiple Instances**: Ensures high availability and load balancing.
 
 ### Key Points
 * **No Ongoing State**: Each instance will serve te request independently.
-* **Control Plane and Data Plane**: The control plane is responsible for staling and health, while the data plance is responsible for inference requests.
+* **Control Plane and Data Plane**: The control plane is responsible for staling and health, while the data plane is responsible for inference requests.
 
-## Responseble AI Layers
+## Responsible AI Layers
 Azure OpenAI provides Responsible AI layers to ensure compliance and prevent abuse.
 * **Content Filtering**: Prompts and responses are scanned for policy violations.
 * **Regional Availability**: A Responsible AI layer is available in each region.
@@ -61,7 +61,7 @@ Azure OpenAI provides Responsible AI layers to ensure compliance and prevent abu
 When you deploy a model, you have choises about where your interface requests can be processed.
 
 ### Standard Deployment
-* **Regional Scope**: Requests are processed only withing the capacity pool of that region in which your resource is deployed.
+* **Regional Scope**: Requests are processed only within the capacity pool of that region in which your resource is deployed.
 * **Limited Capacity**: You're limited to the instances available within that region.
 
 ### Global Deployment
@@ -70,7 +70,7 @@ When you deploy a model, you have choises about where your interface requests ca
 
 ### Data Zone Deployment
 * **Zone Scope**: Requests are processed in defined data zones, such as <span class="highlight">West US 2</span> or <span class="highlight">West Europe</span> (For more informations about models by deployment type and regions, access the [Azure OpenAI Service models](https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models?tabs=python-secure%2Cglobal-standard%2Cstandard-chat-completions) page).
-* **Data Residency compliance**: Ensures that data resides within the boundaries of geographical localtions.
+* **Data Residency compliance**: Ensures that data resides within the boundaries of geographical locations.
 
 ### Terraform Example
 
@@ -90,28 +90,28 @@ resource "azurerm_cognitive_deployment" "ai_cd" {
 }
 ```
 
-## Intelligent Rounting
-The Azure OpenAI uses intelligent rounting to make sure optmization arount performance is achieved:
-* **Least Busy Instance**: Routest to the isntance that is least busy.
+## Intelligent Routing
+The Azure OpenAI uses intelligent rounting to make sure optmization around performance is achieved:
+* **Least Busy Instance**: Routest to the instance that is least busy.
 * **Global Optmization**: It takes into consideration all available pools of capacity for global deployments.
-* **Latency Considerations**: It optimizaes overall response time instead of network latency.
+* **Latency Considerations**: It optimizes overall response time instead of network latency.
 
 ## Network vs. Inference Latency
-* **Network Latency**: The time it takes from the request to reach the server back to returning the response.
+* **Network Latency**: The time it takes from the request to reach the server to the response.
   * Generally very low, such as 10-20 milliseconds.
 * **Inference Latency**: Time take by the model to return a response
   * Greater than network latency
 
 ### Implications
 * **Optimization of inference latency**: Performance optimization more important with respect to inference latency.
-* **Global Deployment**: Access to less utilized instnaces reduces the inference latency.
+* **Global Deployment**: Access to less utilized instances reduces the inference latency.
 
 ## Quota vs Available Capacity
 * **Quota**: Maximum tokens per minute allowed for the resource
 * **Available Capacity**: Resources that are available at any time.
 
 ### Challenges
-* **Quota doesn't guarantee capacity**: You mightn't be able to fulfill your quota capacity isn't available.
+* **Quota doesn't guarantee capacity**: You mightn't be able to fulfill your quota if capacity isn't available.
 * **Regional Limitations**: Capacity can become an issue with standard deployments.
 
 ### Solution
@@ -134,9 +134,9 @@ Even with deployments being global, or at least at the level of the data zone, y
 
 ## API Management Configuration
 With [APIM](https://learn.microsoft.com/en-us/azure/api-management/), you're able to expose an interface endpoint for all your applications.
-* **Centralized Rounting**: APIM routes the request to a targeted OpenAI resource endpoint.
+* **Centralized Routing**: APIM routes the request to a targeted OpenAI resource endpoint.
 * **Health Probing**: Automatic detection of failed instances and routing.
-* **Policy Implementation**: Caching, rate limiting, and any other policy you wanna perform.
+* **Policy Implementation**: Caching, rate limiting, and any other policy you want to perform.
 
 ``` js
 resource "azurerm_virtual_network" "vnet" {
@@ -243,12 +243,12 @@ XML
 ```
 
 ## How Prompt Caching Affects Azure OpenAI
-Prompt caching in Azure OpenAI reduces the number of tokenizations done to a cached version, hance cost-optimizing it. This is because when a repeated prompt exceeds <span class="highlight">~1,000 tokens</span>, you're able to reuase the result of the tokenization.
+Prompt caching in Azure OpenAI reduces the number of tokenizations done to a cached version, hance cost-optimizing it. This is because when a repeated prompt exceeds <span class="highlight">~1,000 tokens</span>, you're able to reuse the result of the tokenization.
 * **Instance Level Cache**: The cache is local to the instance serving the requests.
 * **Best Effort**: No guarantees; smart routing tries to route similiar requests to the same instance.
 
 ## Provisioned Throughput Units (PTUs)
-PTUs let you home to Get Capacity Resevertions and consequently to achieve consistent performance.
+PTUs let you home to Get Capacity Reservations and consequently to achieve consistent performance.
 
 ### Pay-as-You-Go Features
 * **Comsumption-Based**: You pay only per your consumption.
@@ -256,15 +256,15 @@ PTUs let you home to Get Capacity Resevertions and consequently to achieve consi
 * **Not Throughput Guarantees**: Performance depends on available capacity.
 
 ### PTU features
-* **Guaranteed Throughput**: Reserves the certain capacity mensured in tokens per minute.
+* **Guaranteed Throughput**: Reserves a certain capacity measured in tokens per minute.
 * **Consistent Latency**: More predictable response times (99% SLA).
 * **Fixed Costs**: You pay for your reserved capacity independend of usage.
   * **Global PTU**: $1/hour.
   * **Data Zone PTU**: $1.10/hour.
-* More accesible for smaller workloads.
+* More accessible for smaller workloads.
 
 ## Azure Reservations
-If you plan to use PTUs over longer timeframes, then you can make reservations to reduce cost.
+If you plan to use PTUs over longer timeframes, you can make reservations to reduce costs.
 * **Monthly and Yearly Reservations**: Commit to a longer period for discounted rates.
 * **Cost Savings**: Save money compared to hourly rates.
 * **Planning Required**: Ensure you correctly estimate your capacity needs.
@@ -272,7 +272,7 @@ If you plan to use PTUs over longer timeframes, then you can make reservations t
 ## Batch Service
 The Batch deployment type is ideal for those inference jobs that aren't time-sensitive.
 * **Asynchronous Processing**: 24-hour asynchronous processing of jobs is allowed.
-* **Cost-Effective**: About 50% more cost-effective compared with stardard deployments.
+* **Cost-Effective**: About 50% more cost-effective compared with standard deployments.
 * **Global Capacity**: It uses spare capacity globally.
 
 ### Use Cases
@@ -280,7 +280,7 @@ The Batch deployment type is ideal for those inference jobs that aren't time-sen
 * **Data Analysis**: Large amounts of data could be asynchronously processed.
 
 ## Summary
-Understanding all the deployment options inside Azure OpenAI will be important to optimal performance, ensuring compliance, and keeping control of your costs. Here is a quick rundown:
+Understanding all the deployment options inside Azure OpenAI will be essential to optimal performance, ensuring compliance, and keeping control of your costs. Here is a quick rundown:
 
 * **Stateless API**: Conversation history resides within your application.
 * **Regional Resources**: Azure OpenAI resource is regional in scope.
@@ -290,5 +290,5 @@ Understanding all the deployment options inside Azure OpenAI will be important t
   * **Global**: Access to capacity pools globally.
   * **Data Zone**: Access within US or EU regions.
 * **Inteligent Rounting**: Optimizes the handling of requests for performance.
-* **Provisined Throughput**: Reserve capacity for guaranteed performance.
-* **Improving Resiliency**: Using multiple regional resource and API Management.
+* **Provisioned Throughput**: Reserve capacity for guaranteed performance.
+* **Improving resiliency**: Using multiple regional resources and API Management.
