@@ -1,10 +1,10 @@
 ---
 layout: post
 title:  Azure OpenAI Deployment types with Terraform
-description: 
+description: "Let's explore the essential topics from Azure OpenAI Service using Terraform."
 date: 2024-11-01 12:00:00 +0300
 image: '/images/azurexopenai.png'
-ShowToc: true
+toc: true
 tags: [Azure, OpenAI, AI, Terraform]
 ---
 Hey everyone, the Azure OpenAI Service offers a powerful platform where you can embed advanced AI capabilities into applications. Understanding various deployment types and implications on resiliency, availability, and performance is, therefore, crucial. In this blog post, we dive deep into the relevant topics and do not miss offering Terraform code examples for the shown approaches.

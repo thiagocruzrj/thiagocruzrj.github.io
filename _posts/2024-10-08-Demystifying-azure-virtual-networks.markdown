@@ -4,7 +4,7 @@ title:  Demystifying Azure Virtual Networks (VNet)
 description: 
 date: 2024-10-08 20:00:00 +0300
 image: '/images/virtual-network.jpg'
-ShowToc: true
+toc: true
 tags: [Azure, Networking, VNet, Terraform]
 ---
 Hello everyone, welcome to my first blog post! 👋
