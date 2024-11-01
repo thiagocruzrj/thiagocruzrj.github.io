@@ -7,7 +7,7 @@ image: '/images/60.jpg'
 
 Hi, I’m Thiago Cruz, a senior platform engineer with a passion for cloud computing, infrastructure as code, and monitoring solutions. I enjoy diving deep into technical challenges and sharing my insights to help others on their journey in the tech world. Through this blog, I aim to provide practical tutorials and valuable resources for engineers and developers looking to expand their skills in Azure, DevOps, and beyond.
 
-[**View my resume**](/_docs/Thiago_Cruz_Resume.pdf)
+<object data="../_docs/Thiago_Cruz_Resume.pdf" width="1000" height="1000" type='application/pdf'></object>
 
 I’ve led major infrastructure projects for companies with 500k+ users, driving cost optimizations, enhancing security, and improving system reliability. I hold several certifications in Microsoft Azure, AWS, and Kubernetes, which reflect my commitment to continuous learning and staying at the forefront of the cloud industry.
 
