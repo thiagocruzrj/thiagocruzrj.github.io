@@ -403,3 +403,10 @@
     padding: 48px 32px;
   }
 }
+
+.post__content {
+  color: $gray;
+  h2 {
+    text-decoration: underline; 
+  }
+}
