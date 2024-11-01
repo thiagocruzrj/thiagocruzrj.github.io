@@ -7,52 +7,52 @@ image: '/images/virtual-network.jpg'
 ShowToc: true
 tags: [Azure, Networking, VNet, Terraform]
 ---
-Hi, fellow cloud enthusiasts, welcome to my first blog post! 👋
-If you've ever wondered how to keep your Azure resources chatting privately without being "bothered" by the outside world, follow me in this article. Today, we're diving into the networking world of [Azure Virtual Networks (VNet)](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview). Whether you're a seasoned DevOps engineer or just starting your cloud path, this guide will help you set up your secure and efficient VNet using Terraform.
+Hello everyone, welcome to my first blog post! 👋
+If you ever wondered how your Azure resources could keep chatty, privately, not being "disturbed" by the outside world, then follow me in this article. Today, we dive into the networking world of [Azure Virtual Networks (VNet)](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview). This guide will take you through setting up your secure and efficient VNet using Terraform, irrespective of your experience in the DevOps world or if you're just starting your cloud path.
 
 ## What is Azure Virtual Network (VNet)? 
 
-Imagine Azure Virtual Network as your private neighborhood in the vast city of Azure. 🏡 Just like how you have streets, houses, and maybe a coffee shop around the corner, VNet provides a secure and isolated environment where your Azure resources (like Virtual Machines, Databases, etc.) can communicate with each other and the outside worldᅳsafely and efficiently. 
+Think of Azure Virtual Network as your own neighborhood in this big Azure city. Just like you have streets, houses, and maybe a coffee shop around the corner, VNet provides a secure and isolated environment where your Azure resources, like Virtual Machines, Databases, etc., are allowed to communicate with each other and the outside world in a safe and efficient manner.
 
-## Why Should You Care? 
-- First **security**, keeping your data safer than your most expensive Pokémon card. 
-- Improve the **control** managing traffic flow like a traffic cop directing Azure resources. 
-- Scale up or down **flexibility** without effort (or your network). 
+## Why Should You Care?
+* First, **security** protects your data more vigilantly than the most prized Pokémon card.
+* Enhance **control**, directing the flow of traffic with ease, like a traffic policeman in your Azure resources.
+* Scale up or down with **flexibility** without effort-or your network.
 
 ## Key Components of VNet 
-Let's break down the essential parts of a VNet. Think of it as building your own cloud city, block by block.
+Now, let's dive into the key components involved with a VNet. Consider this as building and adding bricks to your cloud city.
 
 ### Subnets and IP Addressing 
-[Subnets](https://learn.microsoft.com/en-us/azure/virtual-network/concepts-and-best-practices) are like different parts in your city. Each subnet can host various types of resources. For example, one subnet for web servers and another for databases, and [IP Addressing](https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/private-ip-addresses) is how your resources find each otherᅳlike address numbers. 
+Well, the concept of subnetting is to divide your city into different parts, just like in your hometown. And each of those subnets can host various kinds of resources. For example, one subnet for web servers, another subnet for databases. And [IP Addressing](https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/private-ip-addresses) is how your resources find each otherᅳlike address numbers.
 
 ## What Are Overlapping Subnets? 
 
-Imagine you're the security guy in a marriage, and the bride and groom accidentally invite two groups of friends to the same table with the same name tag. Awkward, right? 🥴 That's what overlapping subnets are like in your Azure VNet. 
+It would be as if you were the security guy at a marriage, and the bride and groom inadvertently invited two groups of friends to the same table with the same name tag. That's basically what it feels like for your Azure VNET when you have overlapping subnets.
 
-In technical terms, overlapping subnets occur when two or more subnets within the same Virtual Network (VNet) share IP address ranges that intersect or duplicate. This overlap confuses Azure's networking components, leading to traffic routing problems. 
+Overlapping of subnets, technically speaking, means that inside one single VNet, there exist two or more subnets with the IP address range being either duplicated or having commonalities. This duplication is leading to a result of deceiving the networking components of Azure as much that it perturbs in routing the traffic.
 
-### Example of Overlapping Subnets
-Here, Subnet B's address is <span class="highlight">10.0.1.0/24</span> and ranges ( from <span class="highlight">10.0.1.128</span> to <span class="highlight">10.0.1.255</span>), which overlaps with Subnet A's address <span class="highlight">10.0.1.128/25</span> and range ( from <span class="highlight">10.0.1.0</span> to <span class="highlight">10.0.1.255</span>). 
+### Overlapping Subnets Example
+Here, the address of Subnet B is <span class="highlight">10.0.1.0/24</span> and its range is from <span class="highlight">10.0.1.128</span> to <span class="highlight">10.0.1.255</span>, overwriting the address of Subnet A, which is <span class="highlight">10.0.1.128/25</span>, and whose range is from <span class="highlight">10.0.1.0</span> to <span class="highlight">10.0.1.255</span>.
 
-## Why Should You Avoid Overlapping Subnets?
+## Why Should You Not Have Overlapping Subnets?
 
-1. Azure won't know which subnet to send traffic to, causing unpredictable behavior by this **confusion**. (If any of your subnets are overlapping after the <span class="highlight">Terraform apply</span> command an error will pop up) 
-2. Creating or updating resources may fail due to IP **conflicts**. 
-3. Misrouted traffic can expose sensitive data or allow unauthorized access, leading to **security** risks. 
-4. Your resources might not **communicate** as intended, leading to downtime. 
+1. Azure won't know which subnet traffic should be sent to-unpredictable behavior caused by this **confusion**. If any of your subnets overlap, then after the <span class="highlight">Terraform apply</span> command, an error will pop up.
+2. IP **conflicts** can cause creation or updates of resources to fail.
+3. Misrouting traffic may expose sensitive data or permit unauthorized access creating **security** risks.
+4. Resources may not **communicate** as expected and thereby lead to downtowns.
 
-In short, overlapping subnets are like having two different coffee shops with the same name in your city. Customers (or in this case, your data packets) get confused about where to go! ☕️☕️
+Explaining it in another way, overlapping subnets are basically like having two cafes with the same name in your city. Customers-or in this case, your data packets-get confused about which location to go to!
 
-## How to Prevent Overlapping Subnets
+## Overlapping Subnets Prevention
 
-1. Before creating subnets, map your VNet's address space, ensuring each subnet has a unique and non-overlapping range. 
-2. [Classless Inter-Domain Routing (CIDR)](https://docs.netgate.com/pfsense/en/latest/network/cidr.html) allows you to define IP address ranges and allocate distinct blocks for each subnet. 
-3. Keep a documented detailed record of your VNet and subnet configurations, preventing accidental overlaps during expansions or modifications. 
-4. Using Terraform can help enforce non-overlapping subnets using variables and modules that check for IP range conflicts. 
+1. Create an address space mapping for your VNet ahead of time before creating any subnets, with each subnet getting a unique, non-overlapping range for its address space.
+2. [CIDR](https://docs.netgate.com/pfsense/en/latest/network/cidr.html) allows you to plan your IP address ranges and allocate different blocks to each subnet.
+3. Write down all your VNet and subnet configurations on paper in as much detail as possible, which may also avoid accidental overlaps during expansion or changes.
+4. Terraform can manage non-overlapping subnets by using variables and modules that check for conflicts in the IP ranges.
 
 **Talk is cheap, let's go with a Terraform example:**
 <br>
-* If you don't have Terraform installed, please follow this [amazing documentation](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli) provided by Hashicorp.
+*  If you don't already have Terraform installed, please follow [great documentation](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli) provided by Hashicorp here.
 
 ``` js
 provider "azurerm" {
@@ -89,57 +89,52 @@ resource "azurerm_subnet" "subnet_db" {
 
 ## What are Network Security Groups (NSGs)?
 
-⁤Imagine you're hosting a party (analogy for your VNet), and you wanna control who gets in and out. ⁤⁤NSGs are like the security guard at the door, deciding which traffic is allowed and which isn't based on predefined rules. ⁤⁤They help protect your Azure resources by filtering network traffic to and from resources in a VNet. 
+Think of having a party, which for this example, shall be your analogy to your VNet: suppose you wanted to control who gets in and out. The NSGs are like that security guard at the door who allows which traffic and blocks which, based on pre-defined rules. They enable one to protect one's Azure resources by filtering inbound and outbound network traffic to and from resources in a VNet.
 
-### Key Features of NSGs
-* Define what traffic is allowed in and out with **Inbound and Outbound Rules**. ⁤
-* Rules are processed based on **priority numbers**. 
-  1. Lower numbers have higher priority
-  2. The first matching rule determines the action.
-  3. If no rules match, default rules are applied (e.g., deny all inbound traffic by default).
-* Apply NSGs at different levels for granular control associated with Subnets and Network Interfaces. 
+### Main Characteristics of NSGs
+* Inbound and Outbound Rules: Indicate what traffic is allowed in and out. ⁤
+* Priority numbers will tell the sequence of rule processing.
+1. Lower numbers are higher in priority
+2. The first matching rule dictates action.
+3. If none of the rules match, then the defaults are applied, such as deny by default for all inbound traffic.
+* Granular control for NSGs applied at various levels associated with subnets and network interfaces.
 
-NSGs contain a list of security rules that allow or deny network traffic based on factors like, Source and Destination IP Addresses, Ports and Protocols, and traffic direction (Inbound or Outbound). So, when a data packet tries to enter or leave a resource, the NSG evaluates it against its rules and decides whether to allow or deny the traffic.
+NSGs are an ordered list of security rules that allow or deny network traffic based on criteria such as, amongst others, Source and Destination IP Addresses, Ports and Protocols, and the flow of traffic - Inbound or Outbound. As such, when a packet of information tries to enter or exit a resource, the NSG checks the same against its set of rules and makes a decision to Allow or Deny the same.
 
-### Pros of Using NSGs
-1. Granular Control allows you to define precise rules for specific traffic, giving you fine-tuned control over your network security. ⁤
-2. Cost-Effective given that NSG is a built-in feature of Azure VNets, meaning you don't have to pay extra for basic network security. ⁤
-3. With a user-friendly interface and integration with tools like Terraform, managing NSGs is straightforward. ⁤
-4. NSGs can be applied to multiple resources, subnets, or entire VNets, making them **scalable** as your infrastructure grows. ⁤
-5. NSGs work **seamlessly** with other Azure services, enhancing your overall security posture. 
+### Advantages of Using NSGs
+1. Granular Control: It enables the setting of rules for specific traffic, hence offering the ability to finetune your network security. ⁤
+2. Cost-Effective: Since NSG is an Azure VNet-integrated service, you don't have to incur additional expenses for basic network security. ⁤
+3. Easy Management: NSG management is relatively easy since it has a pretty user-friendly interface and is also integrated with tools such as Terraform.
+4. NSGs can be applied at multiple levels-from a few resources to subnets or even complete VNets-thus making them **scalable** for your infrastructure's growth. ⁤
+5. NSGs ensure **seamless integration** with other services provided by Azure, enhancing overall security posture.
 
 ### Cons of Using NSGs
-1. NSGs operate at Layer 4 (Transport Layer) of the OSI model, meaning they can't inspect the content of the traffic (like Layer 7 does). ⁤
-2. As the number of rules grows, managing and troubleshooting them can become challenging. ⁤
-3. NSGs are stateless for outbound traffic, which means return traffic is automatically allowed. ⁤⁤If not configured carefully, this could potentially expose resources. ⁤
-4. While NSGs provide basic logs, they lack advanced monitoring capabilities compared to dedicated security appliances. ⁤
+1. NSGs operate at Layer 4 (Transport Layer) of the OSI model, meaning they can't inspect the content of the traffic as Layer 7 does. ⁤
+2. Too many rules are hard to manage and debug. ³
+3. NSGs are stateless for outbound traffic. The return traffic is allowed automatically. ³³Planned negligently, this could expose resources. ³
+4. Although NSGs do provide some basic logs, advanced monitoring possible with a dedicated security appliance would not be available. ³
 
-## What is VNet Peering? 
+## What is VNet Peering?
 
-It's a seamless and secure way to communicate between VNets, like building a private bridge between two islands. It's fast, cost-effective, and allows VNets to keep logically separated while communicating across regions or within the same Azure Region. 
+This will, in turn, provide a seamless and secure manner of communicating between VNets, similar to building a private bridge between two islands. It is fast, cost-effective, and allows VNets to keep logically separated while communicating across regions or within the same Azure Region.
 
-### Key Features of Vnet Peering 
+### Key Features of Vnet Peering
 
-1. Low latency, as the communication is routed directly within the Azure Backbone network, meaning that it's fast and doesn't require any gateway or public internet traffic. Perfect high-speed data transfer across applications. 
-2. Peering Vnets within the same region (Intra-Region Peering) or VNets located in different Azure regions (Global VNet Peering). This is very useful for global apps where resources are spread across different regions. 
-3. By peering two VNets, you can access resources like databases, share load balances, Application Gateways, or other network services. 
-4. VNet A can communicate with VNet B but cannot automatically talk to VNet C through VNet B (non-transitive). You still route traffic between multiple VNets using a Network Virtual Appliance (NVA) like Azure Firewall or an on-premises VPN device. 
-5. The communication between peered VNets takes place using private IP addresses, so no public IP is required. 
-6. Applying NSGs and route tables to control traffic between peered VNets can ensure granular control over traffic flow between networks. 
+1. Low latency, since it routes the communication directly inside the Azure Backbone network, hence fast and does not require any gateway or public internet traffic. Perfect high-speed data transfer across applications.
+2. Peering VNets within the same region, known as Intra-Region Peering or VNets across different Azure regions, also known as Global VNet Peering. Very useful for global apps when their resources spread across different regions.
+3. Peering of two VNets allows you access to resources such as databases, sharing load balances, Application Gateways, and other network services.
+4. While VNet A communicates with VNet B, it cannot automatically talk with VNet C through VNet B, which is non-transitive. You still route the traffic between multiple VNets using a Network Virtual Appliance (NVA), like Azure Firewall or an on-premises VPN device.
+5. Peered VNets communicate using private IP addresses; therefore, no public IP is required. 6. Applying NSGs and route tables to control the flow of network traffic between peered VNets would provide granular level control over the flow of network traffic between the networks.
 
-### Pros of VNet Peering 
+1. Economical as compared to VPN Gateway, because there are no changes in data processing for network traffic. You pay only for the data transferred between VNets; thus, lower in cost compared to VPN or ExpressRoute.
+2. No complicated setup is required as in the case of Gateways or VPNs.
+3. It is highly performant because VNets can communicate directly over the backbone network of Azure.
+4. NSGs and custom route tables can allow filtering and monitoring of traffic between VNets. 5. Highly scalable since you will expand your infrastructure across multiple VNets and regions seamlessly.
 
-1. It is cost-effective in comparison with VPN Gateway, as it doesn't incur data processing changes for network traffic. You only pay for the data transferred between the VNets, making it a cheaper option than using VPN or ExpressRoute.
-2. Doesn't require a complex setup like Gateways or VPNs.
-3. Very performative as VNets communicate directly over Azure's backbone network.
-4. With NSGs and custom route tables, you can allow filter and monitor traffic between VNets.
-5. Very scalable by expanding your infrastructure across multiple VNets and regions seamlessly.
+### VNet Peering Disadvantages
 
-### Cons of VNet Peering 
-
-1. Routes between multiple VNets are more complex if they are part of a more extensive network topology.
-2. Careful IP space planning, especially in large organizations with many VNets, to avoid overlapping. 
-3. Vnet peering doesn't inherently allow the use of gateway transit (i.e., one VNet has the VPN Gateway, another peered VNet cannot use that gateway unless you explicitly configure gateway transit). 
+1. More complicated routes between multiple VNets if they become part of a larger network topology. 2. Planning of IP spaces should be strictly done, especially for large organizations with numerous VNets so as not to have any overlapping.
+3. Vnet peering does not, by default enable the usage of gateway transit, which means one VNet has the VPN Gateway, another peered VNet cannot use that gateway unless you explicitly config gateway transit.
 
 ### 
 ``` js
@@ -265,7 +260,7 @@ resource "azurerm_virtual_network_peering" "vnet2_to_vnet1" {
 ```
 
 ### Explanation of Key Components
-* Network Security Group (<span class="highlight">azurerm_network_security_group</span>): Defines a security group named myNSG.
+* Network Security Group (<span class="highlight">azurerm_network_security_group</span>): This is the definition of a security group named myNSG.
 * NSG Rules:
   * <span class="highlight">AllowInboundHTTP</span>: Allows inbound HTTP traffic on <span class="highlight">port 80</span>.
   * <span class="highlight">AllowOutboundHTTPS</span>: Allows outbound HTTPS traffic on <span class="highlight">port 443</span>.
@@ -276,5 +271,4 @@ resource "azurerm_virtual_network_peering" "vnet2_to_vnet1" {
   * <span class="highlight">allow_virtual_network_access</span> and <span class="highlight">allow_forwarded_traffic</span> are enabled to allow traffic flow between peered VNets.
 
 ## Conclusion
-
-In conclusion, creating and managing Azure Virtual Networks (VNets) is a foundational skill for ensuring secure and efficient communication between your resources in the cloud. By using Terraform, you can streamline the process of building and configuring VNets, subnets, and Network Security Groups (NSGs), making it easier to maintain and control network traffic within your infrastructure.
+This is a core competency, right at the heart of all security and efficient communication across your resources in the cloud. With Terraform, you make it easier to provision and set up VNets, subnets, and NSGs while having much less stress in keeping track and maintaining control of network traffic throughout your infrastructure.
