@@ -7,9 +7,6 @@ Welcome to my personal blog on [GitHub Pages](https://thiagocruzrj.github.io/), 
 The blog is organized as follows:
 
 - **_posts/**: This folder contains all the blog posts in Markdown format. Each file is named with the date and topic of the post, following the convention `YYYY-MM-DD-Title-of-Post.md`.
-
-![Posts Folder](images/posts-folder.png)
-
 - **_layouts/**: Contains layout templates for structuring pages.
 - **_includes/**: Holds partials that can be included in multiple pages.
 - **_sass/**: Contains SCSS files used for styling the site.
