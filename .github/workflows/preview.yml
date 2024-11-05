@@ -19,5 +19,5 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           preview-branch: main
           source-dir: .
-          umbrella-dir: _posts
+          umbrella-dir: pr-preview/pr
           action: auto
