@@ -1,0 +1,89 @@
+#-------------------------------
+# General Site Settings
+title: LivingCloud
+logo: # You can add own logo. For example '/images/logo.png'.
+description: ""
+baseurl: "https://thiagocruzrj.github.io" # The subpath of your site, e.g. /blog
+url: "" 
+
+#-------------------------------
+# Author Settings
+author:
+  name: Thiago Cruz
+  avatar: '/images/my-picture.jpg'
+
+
+#-------------------------------
+# Hero Settings
+hero:
+  title: Living Cloud
+  description: All about Cloud Computing, Infrastructure, and so on.
+  image: '/images/cloud-index.jpg'
+
+
+#-------------------------------
+# Contact Settings
+contact:
+  email: thagocruz@gmail.com # Add the email for contact form
+  description: If you have any questions, feedback, or collaboration ideas, feel free to reach out through the form below. I look forward to connecting with you! # Add the description on form
+
+
+#-------------------------------
+# Footer section
+# Example of adding a new link to the footer - {icon: "ion-logo-github", link: "https://github.com"}
+# Other icons can be found at https://ionicons.com/v4/
+social:
+- {icon: "ion-logo-github", link: "https://github.com/thiagocruzrj"}
+- {icon: "ion-logo-linkedin", link: "https://www.linkedin.com/in/thiago-cruz-rj/"}
+
+
+#-------------------------------
+# Comment Section (Disqus)
+disqus-identifier: anvodstudio-demo # Add your shortname for Disqus Comment.
+
+
+#-------------------------------
+# Google Analytics
+google-analytics: #UA-XXXXXXXXX-X Add your Google Analytics tracking ID.
+
+
+#-------------------------------
+# Newsletter
+mailchimp: disable # To enable the mailchimp form, use the value 'enable'. To disable the form, leave the field blank.
+mailchimp-identifier: # Add your MailChimp form identifier. 
+
+
+#-------------------------------
+# Build settings
+markdown: kramdown
+permalink: pretty
+plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll/tagging
+  - jekyll-toc
+
+kramdown:
+  parse_block_html: true
+
+paginate: 8
+paginate_path: "/page/:num"
+
+# Pages Path
+defaults:
+  - scope:
+      path: '_pages'
+    values:
+      permalink: /:basename:output_ext
+
+include:
+  - _pages
+
+# Tags
+tag_page_dir:         tag
+tag_page_layout:      tag_page
+tag_permalink_style:  pretty
+
+sass:
+  sass_dir: _sass
+  style: compressed
