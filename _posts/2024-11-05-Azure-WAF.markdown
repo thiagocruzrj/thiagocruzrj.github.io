@@ -10,6 +10,8 @@ tags: [Azure, Architecture, CAF, WAF]
 Hey Everyone, the Microsoft [Azure Well-Architected Framework (WAF)](https://learn.microsoft.com/en-us/azure/well-architected/) provides a broad set of guidelines and best practices fr architects and developers to build secure, high-performing, resilient, and efficient infrastructure for their apps. 
 Let's explore Azure's WAF, its structure, best practices on its app, and the next steps you can take toward optimizing your cloud workloads.
 
+![](/images/caf.png)
+
 ## Understanding the Need for a Framework
 Most organizations begin their cloud journey by leveraging the [Cloud Adoption Framework](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/scenarios/). CAF helps guide governance, identity management, financial operations, and general organizational strategy in cloud adoption. 
 ### The focal points of this framework are:
@@ -38,6 +40,7 @@ Azure WAF is a set of guiding principles that will help improve quality attribut
 * **Structured Guidance**: Pillars, design principles, checklists, and recommendations for structured implementation.
 * **Continuous Improvement**: Allows for the constant reviewing and revision of workloads.
 
+![](/images/waf-full.png)
 ## The Five Pillars of the Well-Architected Framework
 ### Reliability to make your app resilient to failures and keep it running.
 * **Design for resilience**: Point to critical components and possible failure sites; design in redundancy, including fault tolerance.
@@ -146,6 +149,7 @@ After making architectural decisions, refer to Service Guides for Azure-specific
 * **Pillar-Specific Guidance**: Under each service, guidance is organized beneath the five pillars.
 * **Checklists and Recommendations**: Actionable items and best practices tailored to the service.
 
+![](/images/aks.png)
 ### AKS - Azure Kubernetes Service example
 * **Reliability**:
     * **Use Availability Zones**: Put nodes across zones to support fault tolerance.
@@ -154,7 +158,7 @@ After making architectural decisions, refer to Service Guides for Azure-specific
 * **Safety**: 
     * Implement Kubernetes **RBAC** and integrate it with **Azure EntraID**.
     * Traffic control is done using **Network Policies** in Azure or **Calico**.
-    * S**ecrets Management**: Manage secrets in Azure Key Vault instead of cluster configurations.
+    * **Secrets Management**: Manage secrets in Azure Key Vault instead of cluster configurations.
 * **Cost Optimization**:
     * **Autoscaling**: Turn on the cluster autoscaler to balance node counts based on demand.
     * **Proper Nodes**: Choose the suitable virtual machine sizes for your workloads.
