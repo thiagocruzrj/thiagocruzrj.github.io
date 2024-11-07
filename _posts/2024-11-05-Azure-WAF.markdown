@@ -10,8 +10,12 @@ tags: [Azure, Architecture, CAF, WAF]
 Hey Everyone, the Microsoft [Azure Well-Architected Framework (WAF)](https://learn.microsoft.com/en-us/azure/well-architected/) provides a broad set of guidelines and best practices fr architects and developers to build secure, high-performing, resilient, and efficient infrastructure for their apps. 
 Let's explore Azure's WAF, its structure, best practices on its app, and the next steps you can take toward optimizing your cloud workloads.
 
-<p align="center">
+<div style="text-align:center">
   <img src="https://github.com/thiagocruzrj/thiagocruzrj.github.io/blob/main/images/caf.png" />
+</div>
+
+<p align="center" width="100%">
+  <img src="./images/caf.png" />
 </p>
 
 ## Understanding the Need for a Framework
