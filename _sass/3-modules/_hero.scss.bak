@@ -1,6 +1,3 @@
-@use '0-settings/variables' as *;
-@use '1-tools/grid' as *;
-
 /* Hero */
 .hero {
   position: relative;

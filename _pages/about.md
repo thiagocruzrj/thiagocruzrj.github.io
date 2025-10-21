@@ -23,6 +23,9 @@ I’ve led major infrastructure projects for companies with 500k+ users, driving
 - Azure Security Engineer Associate
 - Azure Fundamentals
 
+### GitHub
+- GH-200 GitHub Actions certificate
+
 ### Amazon Web Services (AWS)
 - AWS Certified DevOps Engineer - Professional
 - AWS Certified Cloud Practitioner
@@ -36,4 +39,4 @@ I’ve led major infrastructure projects for companies with 500k+ users, driving
 ## Quick Facts:
 - Location: Madrid, Spain
 - Languages: Portuguese (Native), English (Proficient), Spanish (Advanced), German (Beginner)
-- Passions: Cloud and infrastructure technologies, Stoicism, and philosophy
+- Passions: Cloud, infrastructure technologies, and philosophy

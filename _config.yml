@@ -3,8 +3,8 @@
 title: LivingCloud
 logo: # You can add own logo. For example '/images/logo.png'.
 description: ""
-baseurl: "https://thiagocruzrj.github.io" # The subpath of your site, e.g. /blog
-url: "" 
+baseurl: "" # Leave blank for local development; set to your repo subpath if hosted in subfolder
+url: "https://thiagocruzrj.github.io" 
 
 #-------------------------------
 # Author Settings

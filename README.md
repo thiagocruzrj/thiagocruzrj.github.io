@@ -16,6 +16,7 @@ The blog is organized as follows:
 
 1. [Demystifying Azure Virtual Networks](https://thiagocruzrj.github.io/2024-10-08-Demystifying-azure-virtual-networks)
 2. [Azure OpenAI Deployment with Terraform](https://thiagocruzrj.github.io/2024-10-31-Azure-OpenAI-Deployment-with-terraform)
+2. [Well-architected framework (WAF) on Azure](https://thiagocruzrj.github.io/2024-10-31-Azure-OpenAI-Deployment-with-terraform)
 
 ## Contributing
 Feel free to submit a pull request if you would like to add to or improve the content. I’m open to suggestions for new topics and contributions.

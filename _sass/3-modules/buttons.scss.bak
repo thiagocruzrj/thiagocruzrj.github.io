@@ -1,5 +1,3 @@
-@use '0-settings/variables' as *;
-
 /* Buttons */
 @use "sass:color";
 .button {
