@@ -110,12 +110,14 @@
     font-size: 12px;
     line-height: 10px;
     font-weight: 700;
-    border: 3px solid rgba(255,255,255,0.1);
+    border: 2px solid rgba(255,255,255,0.15);
     border-radius: 24px;
     color: $gray;
+    transition: $global-transition;
     &:hover {
       border-color: $brand-color;
       color: $white;
+      background-color: rgba($brand-color, 0.1);
     }
   }
 }
@@ -123,18 +125,21 @@
 .tag {
   margin: 0 5px 5px 0;
   padding: 8px 16px;
-  background-color: #fff;
-  border-radius: 20px;
-  border: 1px solid #ccc;
-  font-size: 14px;
+  background-color: rgba($brand-color, 0.08);
+  border-radius: 24px;
+  border: 2px solid rgba(255,255,255,0.15);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 10px;
   text-decoration: none;
-  color: #333;
+  color: $gray;
+  transition: $global-transition;
 }
 
 .tag:hover {
-  background-color: #333;
-  color: #fff;
-  border-color: #000;
+  background-color: rgba($brand-color, 0.15);
+  color: $white;
+  border-color: $brand-color;
 }
 
 // Widget Subscribe

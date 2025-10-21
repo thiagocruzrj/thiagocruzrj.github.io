@@ -56,7 +56,7 @@ mailchimp-identifier: # Add your MailChimp form identifier.
 #-------------------------------
 # Build settings
 markdown: kramdown
-permalink: pretty
+permalink: /:year-:month-:day-:title/
 plugins:
   - jekyll-paginate
   - jekyll-sitemap

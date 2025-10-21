@@ -36,7 +36,7 @@ I’ve led major infrastructure projects for companies with 500k+ users, driving
 ### HashiCorp
 - Terraform Associate Certificate
 
-## Quick Facts:
+### Quick Facts:
 - Location: Madrid, Spain
 - Languages: Portuguese (Native), English (Proficient), Spanish (Advanced), German (Beginner)
 - Passions: Cloud, infrastructure technologies, and philosophy
