@@ -60,7 +60,6 @@ permalink: /:year-:month-:day-:title/
 plugins:
   - jekyll-paginate
   - jekyll-sitemap
-  - jekyll-tagging
   - jekyll-toc
 
 kramdown:
@@ -78,11 +77,6 @@ defaults:
 
 include:
   - _pages
-
-# Tags
-tag_page_dir:         tag
-tag_page_layout:      tag_page
-tag_permalink_style:  pretty
 
 sass:
   sass_dir: _sass
