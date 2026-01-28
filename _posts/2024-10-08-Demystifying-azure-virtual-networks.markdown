@@ -4,7 +4,6 @@ title:  Demystifying Azure Virtual Networks (VNet)
 description: 
 date: 2024-10-08 20:00:00 +0300
 image: '/images/virtual-network.jpg'
-toc: true
 tags: [Azure, Networking, VNet, Terraform]
 ---
 Hello everyone, welcome to my first blog post! 👋
@@ -136,7 +135,6 @@ This will, in turn, provide a seamless and secure manner of communicating betwee
 1. More complicated routes between multiple VNets if they become part of a larger network topology. 2. Planning of IP spaces should be strictly done, especially for large organizations with numerous VNets so as not to have any overlapping.
 3. Vnet peering does not, by default enable the usage of gateway transit, which means one VNet has the VPN Gateway, another peered VNet cannot use that gateway unless you explicitly config gateway transit.
 
-#### 
 ``` js
 provider "azurerm" {
   features {}

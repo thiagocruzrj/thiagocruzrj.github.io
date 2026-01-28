@@ -4,7 +4,6 @@ title:  Well-architected framework (WAF) on Azure
 description: "Designed for resilient, efficient cloud workloads"
 date: 2024-11-07 13:00:00 +0300
 image: '/images/waf.png'
-toc: true
 tags: [Azure, Architecture, CAF, WAF]
 ---
 Hey Everyone, the Microsoft [Azure Well-Architected Framework (WAF)](https://learn.microsoft.com/en-us/azure/well-architected/) provides a broad set of guidelines and best practices fr architects and developers to build secure, high-performing, resilient, and efficient infrastructure for their apps. 

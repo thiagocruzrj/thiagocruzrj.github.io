@@ -25,6 +25,7 @@ I’ve led major infrastructure projects for companies with 500k+ users, driving
 
 ### GitHub
 - GH-200 GitHub Actions certificate
+- GH-300 GitHub Copilot certificate
 
 ### Amazon Web Services (AWS)
 - AWS Certified DevOps Engineer - Professional
@@ -38,5 +39,5 @@ I’ve led major infrastructure projects for companies with 500k+ users, driving
 
 ### Quick Facts:
 - Location: Madrid, Spain
-- Languages: Portuguese (Native), English (Proficient), Spanish (Advanced), German (Beginner)
+- Languages: Portuguese (Native), English (C1), Spanish (C1) and German (A2)
 - Passions: Cloud, infrastructure technologies, and philosophy
