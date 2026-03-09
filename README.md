@@ -3,6 +3,7 @@
 Welcome to my personal blog on [GitHub Pages](https://thiagocruzrj.github.io/), where I share insights, tutorials, and best practices on Cloud Computing. This blog focuses on topics such as Azure, AWS, Kubernetes, DevOps, and Infrastructure as Code (IaC).
 
 ## 📚 Table of Contents
+
 - [Technology Stack](#technology-stack)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
@@ -17,27 +18,32 @@ Welcome to my personal blog on [GitHub Pages](https://thiagocruzrj.github.io/), 
 This blog is built with the following technologies:
 
 ### Core Framework
+
 - **Jekyll** (>= 4.3.0) - Static site generator written in Ruby
 - **Ruby** - Programming language required for Jekyll
 - **Bundler** - Dependency management for Ruby gems
 
 ### Jekyll Plugins
+
 - **jekyll-paginate** - Pagination support for blog posts
 - **jekyll-sitemap** - Automatic sitemap.xml generation for SEO
 - **jekyll-toc** - Table of contents generation for posts
 
 ### Frontend Technologies
+
 - **HTML5** - Page structure
 - **SCSS/Sass** - Styling with modular architecture
 - **JavaScript** - Interactive features and search functionality
 - **Ionicons v4** - Icon library for social links
 
 ### Additional Dependencies
+
 - **csv** - CSV file handling
 - **base64** - Base64 encoding/decoding
 - **bigdecimal** - Arbitrary precision decimal arithmetic
 
 ### Hosting
+
 - **GitHub Pages** - Free static site hosting at https://thiagocruzrj.github.io
 
 ## 📋 Prerequisites
@@ -45,25 +51,23 @@ This blog is built with the following technologies:
 Before running this project locally, ensure you have the following installed:
 
 ### 1. Ruby
+
 - **Version**: Ruby 2.7 or higher (3.x recommended)
 - **Download**: [Ruby Official Website](https://www.ruby-lang.org/en/downloads/)
 - **Windows Users**: Use [RubyInstaller](https://rubyinstaller.org/)
 
 To check if Ruby is installed:
+
 ```bash
 ruby --version
 ```
 
 ### 2. Bundler
+
 Bundler is usually installed with Ruby, but you can install it separately:
+
 ```bash
 gem install bundler
-```
-
-### 3. Git (Optional)
-Required for version control and deployment:
-```bash
-git --version
 ```
 
 ## 🚀 Installation
@@ -71,24 +75,30 @@ git --version
 Follow these steps to set up the project on your local machine:
 
 ### Step 1: Clone the Repository
+
 ```bash
 git clone https://github.com/thiagocruzrj/thiagocruzrj.github.io.git
 cd thiagocruzrj.github.io
 ```
 
 ### Step 2: Install Dependencies
+
 Install all required Ruby gems using Bundler:
+
 ```bash
 bundle install
 ```
 
 This will install:
+
 - Jekyll and all its dependencies
 - All plugins listed in the Gemfile
 - Any other required gems
 
 ### Step 3: Verify Installation
+
 Check that Jekyll was installed successfully:
+
 ```bash
 bundle exec jekyll --version
 ```
@@ -96,6 +106,7 @@ bundle exec jekyll --version
 ## 💻 Running Locally
 
 ### Start the Development Server
+
 To run the site locally with live reload:
 
 ```bash
@@ -103,30 +114,38 @@ bundle exec jekyll serve
 ```
 
 **Alternative with detailed options:**
+
 ```bash
 bundle exec jekyll serve --watch --livereload
 ```
 
 Options explained:
+
 - `--watch` - Automatically regenerate the site when files are modified
 - `--livereload` - Refresh the browser automatically when changes are detected
 
 ### Access the Site
+
 Once the server is running, open your browser and navigate to:
+
 ```
 http://localhost:4000
 ```
 
 or
+
 ```
 http://127.0.0.1:4000
 ```
 
 ### Stop the Server
+
 Press `Ctrl + C` in the terminal to stop the server.
 
 ### Build for Production
+
 To generate the production-ready static files:
+
 ```bash
 bundle exec jekyll build
 ```
@@ -188,7 +207,9 @@ thiagocruzrj.github.io/
 ## ✍️ Creating New Posts
 
 ### Post File Naming Convention
+
 Posts must be named following this pattern:
+
 ```
 YYYY-MM-DD-title-of-post.markdown
 ```
@@ -196,6 +217,7 @@ YYYY-MM-DD-title-of-post.markdown
 Example: `2026-01-21-my-new-post.markdown`
 
 ### Post Front Matter Template
+
 Create a new file in the `_posts/` directory with this front matter:
 
 ```yaml
@@ -204,21 +226,23 @@ layout: post
 title: "Your Post Title"
 date: 2026-01-21 10:00:00 +0000
 description: "A brief description of your post"
-image: '/images/your-image.jpg'
+image: "/images/your-image.jpg"
 tags: [azure, kubernetes, devops]
 ---
-
 Your post content here in Markdown format...
 ```
 
 ### Writing Content
+
 - Use Markdown syntax for formatting
 - Add images to the `images/` directory
 - Reference images using: `![Alt text](/images/your-image.jpg)`
 - Use tags to categorize posts
 
 ### Preview Changes
+
 After creating or editing a post, the development server will automatically rebuild:
+
 ```bash
 bundle exec jekyll serve --livereload
 ```
@@ -228,6 +252,7 @@ Navigate to your post at: `http://localhost:4000/YYYY-MM-DD-title-of-post/`
 ## 🚢 Deployment
 
 ### GitHub Pages Deployment
+
 The site automatically deploys to GitHub Pages when you push to the main branch:
 
 ```bash
@@ -237,14 +262,17 @@ git push origin main
 ```
 
 GitHub Pages will automatically build and deploy the site to:
+
 ```
 https://thiagocruzrj.github.io
 ```
 
 ### Manual Deployment
+
 If you need to deploy elsewhere:
 
 1. Build the site:
+
    ```bash
    bundle exec jekyll build
    ```
@@ -256,46 +284,60 @@ If you need to deploy elsewhere:
 ### Common Issues
 
 #### Issue: `bundle install` fails
+
 **Solution**: Update Bundler and retry:
+
 ```bash
 gem update bundler
 bundle install
 ```
 
 #### Issue: Jekyll command not found
+
 **Solution**: Run Jekyll through Bundler:
+
 ```bash
 bundle exec jekyll serve
 ```
 
 #### Issue: Port 4000 already in use
+
 **Solution**: Use a different port:
+
 ```bash
 bundle exec jekyll serve --port 4001
 ```
 
 #### Issue: Changes not reflecting in browser
-**Solution**: 
+
+**Solution**:
+
 1. Clear browser cache
 2. Use incognito/private mode
 3. Ensure `--livereload` flag is used
 4. Restart the Jekyll server
 
 #### Issue: Ruby version incompatibility
+
 **Solution**: Update Ruby to version 2.7 or higher:
+
 - Windows: Download from [RubyInstaller](https://rubyinstaller.org/)
 - macOS: Use `rbenv` or `rvm`
 - Linux: Use your package manager
 
 #### Issue: Native extensions fail to build
+
 **Solution** (Windows): Install Ruby DevKit:
+
 ```bash
 ridk install
 # Select option 3: MSYS2 and MINGW development toolchain
 ```
 
 ### Getting Help
+
 If you encounter issues:
+
 1. Check the [Jekyll documentation](https://jekyllrb.com/docs/)
 2. Review the [GitHub Pages documentation](https://docs.github.com/en/pages)
 3. Open an issue on the [repository](https://github.com/thiagocruzrj/thiagocruzrj.github.io/issues)
@@ -303,7 +345,9 @@ If you encounter issues:
 ## 📝 Configuration
 
 ### Customizing the Site
+
 Edit `_config.yml` to customize:
+
 - Site title and description
 - Author information
 - Social media links
@@ -316,6 +360,7 @@ Edit `_config.yml` to customize:
 ## 🤝 Contributing
 
 Contributions are welcome! To contribute:
+
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes

@@ -5,7 +5,7 @@ description: "In this AI era, where even Linus vibe coding, we need to rely on t
 date: 2026-01-28 12:05:00 +0300
 image: '/images/load-balance-icon.png'
 toc: false
-tags: [System Design, Load Balacing, Fundamentals]
+tags: [System Design, Load Balancing, Fundamentals]
 ---
 Hello again, yeah, years without showing up, and I'm here again to present another topic, just because of AI. Yeah, we need to trust the fundamentals because we'll maintain all the infrastructure and code created by an AI (which uses our disorganized code in thousands of repos on GH). 
 

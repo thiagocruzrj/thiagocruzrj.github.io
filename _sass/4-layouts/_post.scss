@@ -366,6 +366,21 @@
     display: block;
   }
 
+  .row.grid {
+    justify-content: center;
+  }
+
+  .article {
+    min-height: 340px;
+    width: 660px;
+    max-width: 660px;
+    flex: 0 0 660px;
+
+    &::after {
+      padding-top: 12.5%;
+    }
+  }
+
   .related-title {
     position: relative;
     padding-left: 8px;
