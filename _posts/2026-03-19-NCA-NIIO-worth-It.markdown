@@ -3,7 +3,7 @@ layout: post
 title: "Is the NCA-NIIO Worth It? An Honest Take After Passing It"
 description: "I passed the NVIDIA Certified Associate: AI Infrastructure and Operations last week. Here's what I actually think about it, the good, the bad, and what you should actually study."
 date: 2026-03-19 11:45:00 +0300
-image: '/images/2026-03-19-NCA-NIIO-worth-it/cert.png'
+image: '/images/2026-03-19-NCA-NIIO-worth-It/cert.png'
 toc: false
 tags: [AI, Infrastructure, NVIDIA, Certification, Career]
 ---
