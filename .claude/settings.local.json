@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find /c/Users/thago/Documents/GH/thiagocruzrj.github.io -name *.md -path *posts*)"
+    ]
+  }
+}
