@@ -174,6 +174,165 @@
   }
 }
 
+/* Article list layout (homepage grid) */
+.article--list {
+  min-height: auto;
+
+  &::after {
+    display: none;
+  }
+
+  .article__inner {
+    flex-direction: row;
+    min-height: 200px;
+  }
+
+  .article__title {
+    font-size: 22px;
+    margin: 8px 0 10px;
+    a {
+      color: $white;
+      &:hover {
+        color: $brand-color;
+      }
+      // stretched link — covers the entire card
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+      }
+    }
+  }
+
+  // keep author photo, name and tags above the stretched link
+  .article__author a,
+  .article__author-link,
+  .article__tag {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+.article__image--list {
+  position: relative;
+  flex-shrink: 0;
+  width: 240px;
+  background-color: $dark;
+
+  &::after {
+    display: none;
+  }
+
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 16px 0 0 16px;
+    object-fit: contain;
+    pointer-events: none;
+  }
+
+  @media only screen and (max-width: $tablet) {
+    width: 180px;
+  }
+
+  @media only screen and (max-width: $mobile) {
+    width: 100%;
+    height: 180px;
+
+    img {
+      border-radius: 16px 16px 0 0;
+    }
+  }
+}
+
+.article__content--list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+  margin-top: 0;
+  z-index: auto;
+  pointer-events: auto;
+
+  @media only screen and (max-width: $mobile) {
+    padding: 20px;
+  }
+}
+
+/* Featured variant — first two posts, side by side at col-6 */
+.article--list-featured {
+  .article__inner {
+    min-height: 260px;
+  }
+
+  .article__image--list {
+    width: 280px;
+
+    @media only screen and (max-width: $tablet) {
+      width: 200px;
+    }
+
+    @media only screen and (max-width: $mobile) {
+      width: 100%;
+      height: 200px;
+    }
+  }
+
+  .article__title {
+    font-size: 26px;
+  }
+
+  .article__excerpt {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+}
+
+/* Small variant — remaining posts, 2 per row, horizontal layout */
+.article--list-small {
+  .article__inner {
+    flex-direction: row;
+    min-height: 160px;
+  }
+
+  .article__image--list {
+    width: 160px;
+
+    @media only screen and (max-width: $tablet) {
+      width: 130px;
+    }
+
+    @media only screen and (max-width: $mobile) {
+      width: 100%;
+      height: 160px;
+    }
+  }
+
+  .article__title {
+    font-size: 18px;
+    margin: 6px 0 8px;
+  }
+
+  .article__excerpt {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+}
+
+/* revert inner flex direction for mobile */
+@media only screen and (max-width: $mobile) {
+  .article--list .article__inner {
+    flex-direction: column;
+  }
+}
+
 .article__author {
   float: left;
   flex-shrink: 0;

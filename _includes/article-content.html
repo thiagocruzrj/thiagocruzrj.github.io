@@ -1,13 +1,13 @@
-<div class="article col {% if forloop.index <= 2 and page.url == '/' %}col-6 col-t-12 grid__post animate article--big{% else %}col-4 col-d-6 col-t-12 grid__post animate{% endif %}">
+<div class="article article--list {% if forloop.index <= 2 and page.url == '/' %}article--list-featured col-6 col-t-12{% else %}article--list-small col-6 col-t-12{% endif %} grid__post animate">
   <div class="article__inner">
 
     {% if post.image %}
-    <a class="article__image" href="{{post.url | prepend: site.baseurl}}">
+    <a class="article__image article__image--list" href="{{post.url | prepend: site.baseurl}}">
       <img class="lazy" data-src="{{site.baseurl}}{{post.image}}" alt="{{post.title}}">
     </a>
     {% endif %}
 
-    <div class="article__content">
+    <div class="article__content article__content--list">
 
       <div class="article__meta">
         <span class="article__minutes">
@@ -21,7 +21,7 @@
         </span>
       </div>
 
-      <h2 class="article__title">{{ post.title }}</h2>
+      <h2 class="article__title"><a href="{{post.url | prepend: site.baseurl}}">{{ post.title }}</a></h2>
 
       <p class="article__excerpt">{{ post.description }}</p>
 

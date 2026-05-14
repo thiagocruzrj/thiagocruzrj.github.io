@@ -64,7 +64,7 @@
                       {% if post.tags.size >= 1 %}
                       <span>in</span>
                       <span class="article-tags">
-                        {% for tag in post.tags %}
+                        {% for tag in post.tags limit:2 %}
                           <a href="{{ site.baseurl }}/tag/{{ tag }}" class="article__tag">{{ tag }}</a>
                         {% endfor %}
                       </span>
