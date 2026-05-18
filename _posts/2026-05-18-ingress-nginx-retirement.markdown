@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "ingress-nginx Is Retiring. No, You Can't Ignore This One."
+title: "ingress-nginx Has Retired. No, You Can't Ignore This One."
 description: "March 2026 came and went. ingress-nginx is archived, no patches are coming, and the CVEs are already stacking up. If you didn't migrate yet, this is your wake-up call."
 date: 2026-05-18 12:05:00 +0300
 image: '/images/2026-05-18-ingress-nginx-retirement/ingress-nginx-retirement.png'
@@ -64,9 +64,9 @@ helm list --all-namespaces | grep ingress-nginx
 
 Worth doing this across every cluster you own, not just the one you remember installing it on two years ago.
 
-## The Receipts: CVEs Since March 2026
+## The Receipts: Known Vulnerabilities, No Patch Path
 
-For anyone who needs something more concrete than "trust me, it's bad," here's what has accumulated in the roughly eight weeks since the project was archived.
+For anyone who needs something more concrete than "trust me, it's bad," here is the vulnerability track record: some discovered before archival with last-minute patches that many clusters never applied, and some with no fix path whatsoever.
 
 <p align="center">
   <img src="/images/2026-05-18-ingress-nginx-retirement/receipts.gif" width="500"><br>
@@ -104,9 +104,9 @@ If you're running AKS, you probably fall into one of two camps.
 
 **Camp A: DIY Helm install.** You ran `helm install ingress-nginx ingress-nginx/ingress-nginx` at some point, you have a `LoadBalancer` service sitting in front of it, and this is entirely your problem to solve.
 
-**Camp B: Application Routing Add-on.** AKS's managed ingress experience (`--enable-app-routing`) uses community ingress-nginx under the hood. Microsoft will need to evolve this add-on, and you should watch the AKS release notes closely. Don't assume Microsoft will quietly swap out the controller for you without any action required on your end.
+**Camp B: Application Routing Add-on.** AKS's managed ingress experience (`--enable-app-routing`) uses community ingress-nginx under the hood. As of May 2026, Microsoft has not publicly announced a replacement for this add-on. Check the AKS release notes before assuming you're covered — do not treat silence as a migration plan.
 
-Either way, staying on ingress-nginx past the deadline is not a strategy.
+Either way, the deadline has already passed. Staying on ingress-nginx is not a strategy, it is a gamble on how long before an unpatched CVE becomes your incident.
 
 ## Your Options
 
