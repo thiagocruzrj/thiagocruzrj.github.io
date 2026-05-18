@@ -3,14 +3,14 @@ layout: post
 title: "ingress-nginx Has Retired. No, You Can't Ignore This One."
 description: "March 2026 came and went. ingress-nginx is archived, no patches are coming, and the CVEs are already stacking up. If you didn't migrate yet, this is your wake-up call."
 date: 2026-05-18 12:05:00 +0300
-image: '/images/2026-05-18-ingress-nginx-retirement/ingress-nginx-retirement.png'
+image: '/images/2026-05-18-ingress-nginx-is-retired/ingress-nginx-is-retired.png'
 tags: [Kubernetes, Ingress, Cilium, AKS, Platform Engineering, Migration, Networking]
 ---
 
 You know the moment. You open Slack on a Monday morning, someone has dropped a link with the subject line "PSA: ingress-nginx is being deprecated," and your immediate instinct is to close the tab, get another coffee, and let future-you deal with it.
 
 <p align="center">
-  <img src="/images/2026-05-18-ingress-nginx-retirement/not-my-problem.gif" width="500"><br>
+  <img src="/images/2026-05-18-ingress-nginx-is-retired/not-my-problem.gif" width="500"><br>
 </p>
 
 I get it. The Kubernetes ecosystem has cried wolf on deprecations so many times that we have collectively developed a healthy immune response to them. Deprecated APIs get extended. "End of support" turns out to mean "end of official support while the community quietly keeps shipping patches." You learn to wait.
@@ -28,7 +28,7 @@ The problem is that "community project" in this context means "1 to 2 developers
 That is a bus factor of 1, dressed up in a GitHub org badge.
 
 <p align="center">
-  <img src="/images/2026-05-18-ingress-nginx-retirement/this-is-fine.gif" width="500"><br>
+  <img src="/images/2026-05-18-ingress-nginx-is-retired/this-is-fine.gif" width="500"><br>
 </p>
 
 The technical debt didn't help. The `snippets` annotation, which lets you inject arbitrary NGINX configuration into the controller, was once celebrated as flexibility. It is now recognized as a fairly serious security risk, since it lets cluster users with the right permissions push raw NGINX directives into a shared ingress controller. Fixing it properly would require breaking changes that the maintainers simply didn't have the bandwidth to manage.
@@ -69,7 +69,7 @@ Worth doing this across every cluster you own, not just the one you remember ins
 For anyone who needs something more concrete than "trust me, it's bad," here is the vulnerability track record: some discovered before archival with last-minute patches that many clusters never applied, and some with no fix path whatsoever.
 
 <p align="center">
-  <img src="/images/2026-05-18-ingress-nginx-retirement/receipts.gif" width="500"><br>
+  <img src="/images/2026-05-18-ingress-nginx-is-retired/receipts.gif" width="500"><br>
 </p>
 
 ### CVE-2025-1974: CVSS 9.8 (Critical)
@@ -134,7 +134,7 @@ The practical upside for you:
 - **Security posture.** eBPF-based networking gives you visibility and policy enforcement at a level that NGINX-based ingress never could.
 
 <p align="center">
-  <img src="/images/2026-05-18-ingress-nginx-retirement/upgrade.gif" width="500"><br>
+  <img src="/images/2026-05-18-ingress-nginx-is-retired/upgrade.gif" width="500"><br>
 </p>
 
 ## Migrating to Cilium on AKS
@@ -222,7 +222,7 @@ ingress-nginx's retirement is not a Kubernetes problem. It's an open-source sust
 We built production-critical infrastructure on top of heroic volunteerism, celebrated it as "community-owned," and then acted surprised when two people couldn't sustain it indefinitely alongside their actual jobs. This will happen again. It has happened before. The Kubernetes ecosystem is full of ingress controllers, CNI plugins, and storage drivers maintained by one or two people who are one bad quarter away from walking away.
 
 <p align="center">
-  <img src="/images/2026-05-18-ingress-nginx-retirement/lesson-learned.gif" width="500"><br>
+  <img src="/images/2026-05-18-ingress-nginx-is-retired/lesson-learned.gif" width="500"><br>
 </p>
 
 The practical takeaway is simple: before you adopt a component for production, check the contributor graph, not just the star count. A project with 15,000 stars and 2 active maintainers is not the same as a project with 8,000 stars and a funded team behind it.
@@ -235,7 +235,7 @@ You already know what you need to do.
 
 ## References
 
-- [Ingress NGINX Retirement Announcement](https://kubernetes.io/blog/2025/11/11/ingress-nginx-retirement/)
+- [Ingress NGINX Retirement Announcement](https://kubernetes.io/blog/2025/11/11/nginx-is-retired/)
 - [kubernetes-retired Organization](https://github.com/kubernetes-retired/)
 - [ingress2gateway 1.0 Release](https://kubernetes.io/blog/2026/03/20/ingress2gateway-1-0-release/)
 - [Cilium Ingress Controller Documentation](https://docs.cilium.io/en/stable/network/servicemesh/ingress/)
