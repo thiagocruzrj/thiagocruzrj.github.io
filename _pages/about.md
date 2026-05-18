@@ -37,6 +37,9 @@ I’ve led major infrastructure projects for companies with 500k+ users, driving
 ### HashiCorp
 - Terraform Associate Certificate
 
+### NVIDIA
+- Certified Associate: AI Infrastructure and Operations
+
 ### Quick Facts:
 - Location: Madrid, Spain
 - Languages: Portuguese (Native), English (C1), Spanish (C1) and German (A2)
